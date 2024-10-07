@@ -25,6 +25,7 @@
     <h1></h1>
     <div  id="formulario-alumno">
         <h2>Alta de Alumno</h2>
+        
         <form id="form-alumno">
             <input class="form__input" type="text" id="nombre" placeholder="Nombre" required>
             <input class="form__input"type="text" id="apellidos" placeholder="Apellidos" required>
@@ -33,7 +34,18 @@
     </div>
     <div id="lista-alumnos">
         <h2>Lista de Alumnos</h2>
+        <input type="text" id="search"class="form-control mb-3"  placeholder="Buscar por nombre">
         <ul id="alumnos"></ul>
+    </div>
+    <div id="inscribir-materia-container">
+        <h2>Inscribir Alumno en Materia</h2>
+        <form id="inscribir-materia-form">
+            <select id="alumno-select">
+                <!-- Opciones de alumnos se llenarán dinámicamente -->
+            </select>
+            <input type="text" id="materia" placeholder="Materia" required>
+            <button type="submit">Inscribir</button>
+        </form>
     </div>
     <script src="main.js"></script>
 </body>

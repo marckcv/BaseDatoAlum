@@ -13,10 +13,6 @@ class Alumno {
         }
     }
 
-    asignarCalificacion(materia, calificacion) {
-        this.calificaciones[materia] = calificacion;
-    }
-
     obtenerPromedio() {
         const calificaciones = Object.values(this.calificaciones);
         const suma = calificaciones.reduce((acc, cal) => acc + cal, 0);
@@ -49,7 +45,7 @@ class Alumno {
 
 const alumnos = [];
 
-document.getElementById('form-alumno').addEventListener('submit', function(event) {
+document.getElementById('form-alumno').addEventListener("submit", function(event) {
     event.preventDefault();
     const nombre = document.getElementById('nombre').value;
     const apellidos = document.getElementById('apellidos').value;
@@ -68,3 +64,39 @@ function actualizarListaAlumnos() {
         lista.appendChild(li);
     });
 }
+function actualizarSelectorAlumnos() {
+    const select = document.getElementById('alumno-select');
+    select.innerHTML = '';
+    alumnos.forEach((alumno, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${alumno.nombre} ${alumno.apellidos}`;
+        select.appendChild(option);
+    });
+}
+
+// Evento para inscribir a un alumno en una materia
+document.getElementById('inscribir-materia-form').addEventListener("submit", function(event) {
+    event.preventDefault();
+    const alumnoIndex = document.getElementById('alumno-select').value;
+    const materia = document.getElementById('materia').value;
+    if (alumnoIndex !== '' && materia !== '') {
+        alumnos[alumnoIndex].inscribirMateria(materia);
+        alert(`Alumno inscrito en ${materia}`);
+    }
+});
+
+// Llama a esta función después de agregar un nuevo alumno
+document.getElementById('alumno-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const apellidos = document.getElementById('apellidos').value;
+    const edad = document.getElementById('edad').value;
+    const nuevoAlumno = new Alumno(nombre, apellidos, edad);
+    alumnos.push(nuevoAlumno);
+    actualizarVista();
+    actualizarSelectorAlumnos();
+});
+
+// Inicializa el selector de alumnos al cargar la página
+actualizarSelectorAlumnos();
